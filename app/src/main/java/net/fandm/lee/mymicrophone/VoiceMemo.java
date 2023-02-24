@@ -51,17 +51,19 @@ public class VoiceMemo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!isRecording) {
-                    startRecording();
+                    onPermissionCallback(1, new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, new int[]{PackageManager.PERMISSION_GRANTED, PackageManager.PERMISSION_GRANTED});
                     isRecording = true;
                     recordButton.setForeground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.baseline_crop_square_24));
                     recordButton.setBackgroundResource(R.drawable.red_stop);
+                    isRecording = true;
                 } else {
                     stopRecording();
                     isRecording = false;
                     recordButton.setForeground(AppCompatResources.getDrawable(getApplicationContext(), R.drawable.baseline_mic_24));
                     recordButton.setBackgroundResource(R.drawable.record_bttn);
+                    isRecording = false;
                 }
-                isRecording = !isRecording;
+
             }
         });
     }
@@ -77,31 +79,26 @@ public class VoiceMemo extends AppCompatActivity {
                 }
                 //create directory if it doesn't exist
                 File audioDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+
                 File targetFile = new File(audioDir, "recorded_audio.mp4"); //this will be a time stamp?
-                recorder = new MediaRecorder();
-                Log.d("1", "media recorder created");
-
-                //prompt user for permissions
 
 
 
 
-                recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                Log.d("2", "AudioSource found (not permissions)");
-                recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-                Log.d("3", "OutputFormat found");
+                try { //basic MediaRecorder configuration found on ChatGPT3
+                    recorder = new MediaRecorder();
 
-                recorder.setOutputFile(targetFile.getAbsolutePath());
-                Log.d("4", "OutputFile found");
+                    //prompt user for permissions
+                    recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 
-                recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-                recorder.setAudioEncodingBitRate(1600);
-                recorder.setAudioSamplingRate(44100);
-                Log.d("5", "AudioEncoder found");
+                    recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 
+                    recorder.setOutputFile(targetFile.getAbsolutePath());
 
-
-                try {
+                    recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+                    recorder.setAudioEncodingBitRate(1600);
+                    recorder.setAudioSamplingRate(44100);
+                    Log.d("5", "AudioEncoder found");
                     recorder.prepare();
                     recorder.start();
 
@@ -123,8 +120,8 @@ public class VoiceMemo extends AppCompatActivity {
 
             public void onPermissionCallback(int requestCode, String[] permissions, int[] grantResults) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getApplicationContext(), "permission granted", Toast.LENGTH_LONG).show();
 
+                    startRecording();
                 } else {
                     Toast.makeText(getApplicationContext(), "permission denied", Toast.LENGTH_LONG).show();
                     String packageName = getApplicationContext().getPackageName(); //found on chatGPT3, how to kill app
