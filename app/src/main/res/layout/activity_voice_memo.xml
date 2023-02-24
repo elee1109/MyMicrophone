@@ -22,7 +22,7 @@
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/record_button"
-        android:backgroundTint="@color/mic_background_color"
+
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/record_bttn"
