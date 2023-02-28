@@ -5,21 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VoiceMemo">
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="500dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constrainedRight_toRightOf="parent"
-        >
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-
-
-
-
-
-    </ListView>
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/record_button"
@@ -30,7 +25,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+
+        android:layout_marginBottom="10dp"
         android:foreground="@drawable/baseline_mic_24"/>
-    >
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

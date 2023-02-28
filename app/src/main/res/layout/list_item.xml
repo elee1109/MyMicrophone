@@ -5,15 +5,20 @@
 
     <ImageView
         android:id="@+id/play_arrow"
+        android:foreground="@drawable/baseline_play_circle_24"
         android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        />
 
     <TextView
         android:id="@+id/time_stamp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/play_arrow"
-        android:textSize="20sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 
